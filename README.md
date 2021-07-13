@@ -1,0 +1,2 @@
+# Coppernik
+My discord bot
