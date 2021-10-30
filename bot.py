@@ -27,14 +27,4 @@ async def on_message(message):
                     await botMessage.add_reaction(instruction.params['emoji'])
 
 
-@bot.command()
-async def join_voice(ctx):
-    channel = ctx.author.voice.channel
-    await channel.connect()
-
-
-@bot.command()
-async def leave_voice(ctx):
-    await ctx.voice_client.disconnect()
-
 
