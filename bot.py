@@ -17,14 +17,19 @@ async def on_ready():
 @bot.event
 async def on_message(message):
     if message.content.startswith(C.Bot.prefix):
-        co = execute(message)
-        if co is not None:
-            botMessage = await message.channel.send(co.text)
-            if co.deleteMessage:
-                await message.delete()
-            for instruction in co.instructions:
-                if instruction.id == "addReaction":
-                    await botMessage.add_reaction(instruction.params['emoji'])
+        # TODO: remove this shit
+        if "join_voice" in message.content:
+            channel = message.author.voice.channel
+            await channel.connect()
+        else:
+            co = execute(message)
+            if co is not None:
+                botMessage = await message.channel.send(co.text)
+                if co.deleteMessage:
+                    await message.delete()
+                for instruction in co.instructions:
+                    if instruction.id == "addReaction":
+                        await botMessage.add_reaction(instruction.params['emoji'])
 
 
 
