@@ -28,11 +28,14 @@ async def on_message(message):
                 for instruction in co.instructions:
                     if instruction.id == "sendToAnotherChannel":
                         channel = bot.get_channel(int(instruction.params['channelId']))
-                botMessage = await channel.send(co.text)
+                botMessage = None
+                if co.text != '' and co.text is not None:
+                    botMessage = await channel.send(co.text)
                 if co.deleteMessage:
                     await message.delete()
                 for instruction in co.instructions:
                     if instruction.id == "addReaction":
-                        await botMessage.add_reaction(instruction.params['emoji'])
+                        if botMessage is not None:
+                            await botMessage.add_reaction(instruction.params['emoji'])
                     if instruction.id == "addReactionToUserMessage":
                         await message.add_reaction(instruction.params['emoji'])
