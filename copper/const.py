@@ -42,7 +42,6 @@ class C:
             return str(uid) == '513755953712070657'
 
     class Bot:
-        # token = os.environ.get("COPPERNIK_TOKEN")
-        token = 'ODEyNzU2ODQ2NDQyOTcxMTQ2.YDFYzA.c1mKBJ8hIejAPaDtjBZF_RPE4GI'
+        token = os.environ.get("COPPERNIK_TOKEN")
         prefix = '.'
         status = '.help'
