@@ -62,7 +62,14 @@ class Voting:
                         CommandInstruction("sendToAnotherChannel", {"channelId": "906212467527516200"})]
         return CommandOutput(text, deleteMessage=False, instructions=instructions)
 
+    @classmethod
+    def addVote(cls, ci):
+        instructions = [CommandInstruction("addReactionToUserMessage", {"emoji": "👍"}),
+                        CommandInstruction("addReactionToUserMessage", {"emoji": "👎"})]
+        return CommandOutput(None, deleteMessage=False, instructions=instructions)
+
 
 Commands.register("mvote", "Позволяет сделать голосование (до 9 вариантов).", Voting.createMultiVote)
 Commands.register("vote", "Позволяет сделать простое голосование (Только за/против).", Voting.createVote)
-Commands.register("modidea", "Создаёт идею для мода в канале <#906212467527516200>", Voting.createIdea)
+# Commands.register("modidea", "Создаёт идею для мода в канале <#906212467527516200>", Voting.createIdea)
+Commands.register("v", "Создаёт на сообщении с командой реакции за и против.", Voting.addVote)

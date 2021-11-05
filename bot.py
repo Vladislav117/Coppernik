@@ -34,3 +34,5 @@ async def on_message(message):
                 for instruction in co.instructions:
                     if instruction.id == "addReaction":
                         await botMessage.add_reaction(instruction.params['emoji'])
+                    if instruction.id == "addReactionToUserMessage":
+                        await message.add_reaction(instruction.params['emoji'])
