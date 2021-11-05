@@ -24,12 +24,13 @@ async def on_message(message):
         else:
             co = execute(message)
             if co is not None:
-                botMessage = await message.channel.send(co.text)
+                channel = message.channel
+                for instruction in co.instructions:
+                    if instruction.id == "sendToAnotherChannel":
+                        channel = bot.get_channel(int(instruction.params['channelId']))
+                botMessage = await channel.send(co.text)
                 if co.deleteMessage:
                     await message.delete()
                 for instruction in co.instructions:
                     if instruction.id == "addReaction":
                         await botMessage.add_reaction(instruction.params['emoji'])
-
-
-

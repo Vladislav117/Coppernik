@@ -53,6 +53,16 @@ class Voting:
                         CommandInstruction("addReaction", {"emoji": "👎"})]
         return CommandOutput(text, deleteMessage=True, instructions=instructions)
 
+    @classmethod
+    def createIdea(cls, ci):
+        allText = ci.src.replace(C.Bot.prefix + ci.command, '')
+        text = f"У {ci.mention} есть идея:\n\n{allText}\n\n(Создайте ветку для обсуждения, API пока не поддерживает работу с ветками)\n\n<@404602495365677057>"
+        instructions = [CommandInstruction("addReaction", {"emoji": "👍"}),
+                        CommandInstruction("addReaction", {"emoji": "👎"}),
+                        CommandInstruction("sendToAnotherChannel", {"channelId": "906212467527516200"})]
+        return CommandOutput(text, deleteMessage=False, instructions=instructions)
+
 
 Commands.register("mvote", "Позволяет сделать голосование (до 9 вариантов).", Voting.createMultiVote)
 Commands.register("vote", "Позволяет сделать простое голосование (Только за/против).", Voting.createVote)
+Commands.register("modidea", "Создаёт идею для мода в канале <#906212467527516200>", Voting.createIdea)
